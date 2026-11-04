@@ -1,32 +1,32 @@
-nano Jenkinsfile
 pipeline {
     agent any
 
-    environment {        BUILD_CONFIG = 'Release'
+    environment {
+        BUILD_CONFIG = 'Release'
     }
 
     stages {
         stage('Checkout') {
             steps {
-                echo 'Pulling the latest code from repository...'
+                echo 'Pulling the latest code from GitHub...'
                 checkout scm
             }
         }
-        stage('Restore Dependencies') {
+        stage('Restore') {
             steps {
-                echo 'Restoring NuGet packages...'
+                echo 'Restoring project dependencies...'
                 sh 'dotnet restore'
             }
         }
-        stage('Build Application') {
+        stage('Build') {
             steps {
-                echo "Compiling the project in ${BUILD_CONFIG} mode..."
+                echo 'Compiling the .NET Core Web API...'
                 sh "dotnet build --configuration ${BUILD_CONFIG} --no-restore"
             }
         }
-        stage('Publish Artifacts') {
+        stage('Publish') {
             steps {
-                echo 'Publishing the web API project...'
+                echo 'Publishing build artifacts...'
                 sh "dotnet publish --configuration ${BUILD_CONFIG} --output ./publish --no-build"
             }
         }
