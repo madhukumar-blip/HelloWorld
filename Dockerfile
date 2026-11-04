@@ -1,8 +1,8 @@
-# 1. Use the official Microsoft .NET Runtime image as the base
+# 1. Use the official Microsoft .NET 10.0 ASP.NET runtime image
 FROM ://microsoft.com AS runtime
 WORKDIR /app
 
-# 2. Copy the published artifacts from Jenkins into the image
+# 2. Copy the published artifacts from the build stage into the image
 COPY ./publish/ .
 
 # 3. Expose port 5000 for the Web API
