@@ -1,12 +1,12 @@
-# Use the official Microsoft ASP.NET Core runtime base image
+# Use the official Microsoft ASP.NET Core production runtime image
 FROM ://microsoft.com AS runtime
 WORKDIR /app
 
-# Copy the compiled binaries that Jenkins just built
+# Copy the compiled binaries directly from the compilation workspace
 COPY bin/Release/net10.0/ /app/
 
-# Expose port 8080 for the API application
+# Expose the standard internal API container port
 EXPOSE 8080
 
-# Define the execution entrypoint
+# Execute the application DLL on container startup
 ENTRYPOINT ["dotnet", "MyDotNetApi.dll"]
