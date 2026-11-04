@@ -2,8 +2,7 @@ nano Jenkinsfile
 pipeline {
     agent any
 
-    environment {
-        BUILD_CONFIG = 'Release'
+    environment {        BUILD_CONFIG = 'Release'
     }
 
     stages {
