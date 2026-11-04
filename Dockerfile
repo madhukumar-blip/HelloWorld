@@ -1,13 +1,12 @@
-# 1. Use the official Microsoft .NET 10.0 ASP.NET runtime image
+# Use the official Microsoft ASP.NET Core runtime base image
 FROM ://microsoft.com AS runtime
 WORKDIR /app
 
-# 2. Copy the published artifacts from the build stage into the image
-COPY ./publish/ .
+# Copy the compiled binaries that Jenkins just built
+COPY bin/Release/net10.0/ /app/
 
-# 3. Expose port 5000 for the Web API
-EXPOSE 5000
-ENV ASPNETCORE_URLS=http://+:5000
+# Expose port 8080 for the API application
+EXPOSE 8080
 
-# 4. Command to run the application
+# Define the execution entrypoint
 ENTRYPOINT ["dotnet", "MyDotNetApi.dll"]
