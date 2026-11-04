@@ -3,10 +3,8 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Building .NET App...'
-                dir('MyDotNetApi') {
-                    sh 'dotnet build --configuration Release'
-                }
+                echo 'Building .NET App from repository root...'
+                sh 'dotnet build --configuration Release'
             }
         }
     }
