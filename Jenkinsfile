@@ -13,10 +13,12 @@ pipeline {
             }
         }
 
+
         stage('Archive Artifacts') {
             steps {
                 echo 'Saving compiled build binaries in Jenkins...'
-                archiveArtifacts artifacts: 'bin/Release/**', allowEmptyArchive: false
+                // Using your original verified build path from previous logs
+                archiveArtifacts artifacts: 'MyDotNetApi/bin/Release/net10.0/**', allowEmptyArchive: true
             }
         }
 
@@ -24,6 +26,14 @@ pipeline {
             steps {
                 echo "Building Docker container image: ${DOCKER_IMAGE}..."
                 sh "docker build -t ${DOCKER_IMAGE} ."
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+               echo 'Stopping old container and launching the new version...'
+               sh 'docker rm -f my-running-api || true'
+               sh 'docker run -d -p 5000:8080 --name my-running-api mydotnetapi:latest'
             }
         }
     }
