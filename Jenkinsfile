@@ -8,6 +8,9 @@ pipeline {
     stages {
         stage('Build .NET App') {
             steps {
+    echo 'Cleaning up any left-over build artifacts...'
+                // This cleans out the stale obj/ and bin/ folders causing the errors
+                sh 'git clean -xdff || dotnet clean'
                 echo 'Building .NET App from repository root...'
                 sh 'dotnet build --configuration Release'
             }
